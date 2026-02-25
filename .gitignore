@@ -1,0 +1,20 @@
+# Binary
+freshbox
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Test
+*.test
+coverage.out
+
+# Debug
+*.log
