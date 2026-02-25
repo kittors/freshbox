@@ -5,8 +5,17 @@ set -euo pipefail
 # Usage: curl -fsSL https://raw.githubusercontent.com/kittors/freshbox/main/install.sh | bash
 
 REPO="kittors/freshbox"
-INSTALL_DIR="/usr/local/bin"
 TMP_DIR=$(mktemp -d)
+
+# Use /opt/homebrew/bin on Apple Silicon, /usr/local/bin on Intel
+if [ "$(uname -m)" = "arm64" ]; then
+    INSTALL_DIR="/opt/homebrew/bin"
+else
+    INSTALL_DIR="/usr/local/bin"
+fi
+
+# Ensure install dir exists
+sudo mkdir -p "$INSTALL_DIR" 2>/dev/null || true
 
 cleanup() { rm -rf "$TMP_DIR"; }
 trap cleanup EXIT
