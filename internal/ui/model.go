@@ -604,7 +604,9 @@ func (m Model) View() string {
 	b.WriteString("\n")
 	b.WriteString(m.renderFooter())
 
-	return b.String()
+	// Constrain output to terminal size to prevent scroll overflow
+	content := b.String()
+	return lipgloss.Place(m.width, m.height, lipgloss.Left, lipgloss.Top, content)
 }
 
 func (m Model) renderHeader() string {
