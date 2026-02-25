@@ -1,7 +1,9 @@
 package checker
 
 import (
+	"os"
 	"os/exec"
+	"path/filepath"
 	"strings"
 )
 
@@ -25,26 +27,45 @@ type Item struct {
 	IsCask    bool
 }
 
+// resolveCmd finds the command binary, also checking ~/.cargo/bin for Rust tools
+func resolveCmd(cmd string) string {
+	// Try PATH first
+	if p, err := exec.LookPath(cmd); err == nil {
+		return p
+	}
+	// Try ~/.cargo/bin (rustup installs here but PATH may not include it)
+	home, _ := os.UserHomeDir()
+	cargoPath := filepath.Join(home, ".cargo", "bin", cmd)
+	if _, err := os.Stat(cargoPath); err == nil {
+		return cargoPath
+	}
+	return ""
+}
+
 func Check(item *Item) {
-	path, err := exec.LookPath(item.Cmd)
-	if err != nil {
+	cmdPath := resolveCmd(item.Cmd)
+	if cmdPath == "" {
 		item.Status = NotInstalled
 		item.Version = ""
 		return
 	}
-	_ = path
-	item.Status = Installed
 
 	if item.VerFlag != "" {
-		out, err := exec.Command(item.Cmd, item.VerFlag).CombinedOutput()
-		if err == nil {
-			ver := strings.TrimSpace(string(out))
-			if idx := strings.Index(ver, "\n"); idx > 0 {
-				ver = ver[:idx]
-			}
-			item.Version = ver
+		out, err := exec.Command(cmdPath, item.VerFlag).CombinedOutput()
+		if err != nil {
+			// Command exists but --version fails (e.g. macOS /usr/bin/java stub)
+			item.Status = NotInstalled
+			item.Version = ""
+			return
 		}
+		ver := strings.TrimSpace(string(out))
+		if idx := strings.Index(ver, "\n"); idx > 0 {
+			ver = ver[:idx]
+		}
+		item.Version = ver
 	}
+
+	item.Status = Installed
 }
 
 func CheckAll(items []*Item) {
