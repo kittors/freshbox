@@ -378,10 +378,26 @@ func (m Model) renderInstallProgress() string {
 		DimStyle.Render(fmt.Sprintf(" %d%%", pct))
 	b.WriteString("  " + bar + "\n\n")
 
-	// Completed items log (show last 10 to avoid overflow)
+	// Calculate how many log entries we can show based on terminal height
+	// Fixed lines: header(~6) + title(2) + bar(2) + current task(3) + upcoming(~5) + footer(3) + box border(2)
+	fixedLines := 23
+	upcomingCount := 0
+	for i := m.installIdx + 1; i < len(m.installQueue) && upcomingCount < 3; i++ {
+		upcomingCount++
+	}
+	if upcomingCount > 0 {
+		fixedLines += upcomingCount + 1
+	}
+
+	maxLogLines := m.height - fixedLines
+	if maxLogLines < 3 {
+		maxLogLines = 3
+	}
+
+	// Completed items log (dynamically sized)
 	logStart := 0
-	if len(m.installLog) > 10 {
-		logStart = len(m.installLog) - 10
+	if len(m.installLog) > maxLogLines {
+		logStart = len(m.installLog) - maxLogLines
 		b.WriteString(DimStyle.Render(fmt.Sprintf("  ... %d more above\n", logStart)))
 	}
 	for i := logStart; i < len(m.installLog); i++ {
