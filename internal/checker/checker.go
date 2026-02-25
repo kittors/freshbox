@@ -27,18 +27,37 @@ type Item struct {
 	IsCask    bool
 }
 
-// resolveCmd finds the command binary, also checking ~/.cargo/bin for Rust tools
+// resolveCmd finds the command binary, checking extra paths for known tools
 func resolveCmd(cmd string) string {
-	// Try PATH first
+	home, _ := os.UserHomeDir()
+
+	// Check tool-specific paths first (before PATH, which may have stubs)
+	// Rust: ~/.cargo/bin
+	if cmd == "rustup" || cmd == "rustc" || cmd == "cargo" {
+		cargoPath := filepath.Join(home, ".cargo", "bin", cmd)
+		if _, err := os.Stat(cargoPath); err == nil {
+			return cargoPath
+		}
+	}
+	// Java: brew's openjdk (macOS /usr/bin/java is a stub that fails without JDK)
+	if cmd == "java" {
+		brewJava := "/opt/homebrew/opt/openjdk/bin/java"
+		if _, err := os.Stat(brewJava); err == nil {
+			return brewJava
+		}
+	}
+
+	// Try PATH
 	if p, err := exec.LookPath(cmd); err == nil {
 		return p
 	}
-	// Try ~/.cargo/bin (rustup installs here but PATH may not include it)
-	home, _ := os.UserHomeDir()
+
+	// Fallback: ~/.cargo/bin for any command
 	cargoPath := filepath.Join(home, ".cargo", "bin", cmd)
 	if _, err := os.Stat(cargoPath); err == nil {
 		return cargoPath
 	}
+
 	return ""
 }
 

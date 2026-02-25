@@ -112,12 +112,25 @@ func SetDefaultBrowser() error {
 	return nil
 }
 
-// SetJavaHome configures JAVA_HOME in shell profile
+// SetJavaHome creates the system symlink for brew-installed OpenJDK and configures JAVA_HOME
 func SetJavaHome() error {
-	cmd := exec.Command("bash", "-c", `echo 'export JAVA_HOME=$(/usr/libexec/java_home)' >> ~/.zshrc`)
-	out, err := cmd.CombinedOutput()
-	if err != nil {
-		return fmt.Errorf("%s: %s", err, string(out))
+	// Create symlink so system Java wrappers can find brew's OpenJDK
+	// This is required because brew openjdk is keg-only
+	symCmd := exec.Command("sudo", "ln", "-sfn",
+		"/opt/homebrew/opt/openjdk/libexec/openjdk.jdk",
+		"/Library/Java/JavaVirtualMachines/openjdk.jdk")
+	if out, err := symCmd.CombinedOutput(); err != nil {
+		return fmt.Errorf("create java symlink: %s %s", err, string(out))
+	}
+
+	// Add JAVA_HOME to zshrc if not already present
+	checkCmd := exec.Command("bash", "-c", `grep -q 'JAVA_HOME' ~/.zshrc 2>/dev/null`)
+	if checkCmd.Run() != nil {
+		// Not found, append it
+		cmd := exec.Command("bash", "-c", `echo '' >> ~/.zshrc && echo '# Java' >> ~/.zshrc && echo 'export JAVA_HOME=$(/usr/libexec/java_home)' >> ~/.zshrc`)
+		if out, err := cmd.CombinedOutput(); err != nil {
+			return fmt.Errorf("write JAVA_HOME: %s %s", err, string(out))
+		}
 	}
 	return nil
 }
