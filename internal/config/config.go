@@ -57,7 +57,9 @@ func AvailableMCPs() []MCPServer {
 func WriteCodexConfig(cfg CodexConfig) error {
 	home, _ := os.UserHomeDir()
 	dir := filepath.Join(home, ".codex")
-	os.MkdirAll(dir, 0755)
+	if err := os.MkdirAll(dir, 0755); err != nil {
+		return fmt.Errorf("create codex dir: %w", err)
+	}
 	configPath := filepath.Join(dir, "config.toml")
 
 	// Read existing config
@@ -164,9 +166,14 @@ requires_openai_auth = true`, providerName, cfg.BaseURL)
 func WriteCodexAuth(auth CodexAuth) error {
 	home, _ := os.UserHomeDir()
 	dir := filepath.Join(home, ".codex")
-	os.MkdirAll(dir, 0755)
+	if err := os.MkdirAll(dir, 0755); err != nil {
+		return fmt.Errorf("create codex dir: %w", err)
+	}
 
-	data, _ := json.MarshalIndent(auth, "", "  ")
+	data, err := json.MarshalIndent(auth, "", "  ")
+	if err != nil {
+		return fmt.Errorf("marshal auth: %w", err)
+	}
 	return os.WriteFile(filepath.Join(dir, "auth.json"), data, 0600)
 }
 
@@ -174,7 +181,9 @@ func WriteCodexAuth(auth CodexAuth) error {
 func WriteClaudeConfig(cfg ClaudeConfig) error {
 	home, _ := os.UserHomeDir()
 	dir := filepath.Join(home, ".claude")
-	os.MkdirAll(dir, 0755)
+	if err := os.MkdirAll(dir, 0755); err != nil {
+		return fmt.Errorf("create claude dir: %w", err)
+	}
 	settingsPath := filepath.Join(dir, "settings.json")
 
 	// Read existing settings
@@ -207,7 +216,10 @@ func WriteClaudeConfig(cfg ClaudeConfig) error {
 		existing["env"] = envMap
 	}
 
-	data, _ := json.MarshalIndent(existing, "", "  ")
+	data, err := json.MarshalIndent(existing, "", "  ")
+	if err != nil {
+		return fmt.Errorf("marshal settings: %w", err)
+	}
 	return os.WriteFile(settingsPath, data, 0600)
 }
 

@@ -1,24 +1,24 @@
 <p align="center">
-  <img src="https://img.shields.io/badge/platform-macOS-blue?style=flat-square&logo=apple" />
-  <img src="https://img.shields.io/badge/language-Go-00ADD8?style=flat-square&logo=go" />
-  <img src="https://img.shields.io/badge/TUI-Bubbletea-ff69b4?style=flat-square" />
-  <img src="https://img.shields.io/badge/license-MIT-green?style=flat-square" />
+  <img src="https://img.shields.io/badge/platform-macOS-blue?style=for-the-badge&logo=apple&logoColor=white" />
+  <img src="https://img.shields.io/badge/language-Go-00ADD8?style=for-the-badge&logo=go&logoColor=white" />
+  <img src="https://img.shields.io/badge/TUI-Bubbletea-ff69b4?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/license-MIT-green?style=for-the-badge" />
 </p>
 
 <h1 align="center">🍃 freshbox</h1>
 
 <p align="center">
-  <strong>A beautiful TUI for setting up a fresh macOS machine in minutes.</strong><br/>
+  <strong>Set up a fresh Mac in minutes — not hours.</strong><br/>
   <sub>一个漂亮的终端界面工具，帮你几分钟内配置好全新的 Mac。</sub>
 </p>
 
 <p align="center">
-  <a href="#-quick-install">Quick Install</a> •
+  <a href="#-quick-install">Install</a> •
   <a href="#-features">Features</a> •
-  <a href="#-what-gets-installed">What Gets Installed</a> •
+  <a href="#️-what-gets-installed">Catalog</a> •
   <a href="#-usage">Usage</a> •
-  <a href="#-中文说明">中文说明</a> •
-  <a href="#-credits">Credits</a>
+  <a href="#-中文说明">中文</a> •
+  <a href="#-contributing">Contributing</a>
 </p>
 
 ---
@@ -48,15 +48,19 @@
       □ Mole — macOS system cleaner to free up disk space by tw93
 ```
 
+> Already-installed tools are shown with **strikethrough** and their version — you only install what's missing.
+
+---
+
 ## 🚀 Quick Install
 
-One command to install freshbox:
+**One command:**
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/kittors/freshbox/main/install.sh | bash
 ```
 
-Or build from source:
+**Or build from source:**
 
 ```bash
 git clone https://github.com/kittors/freshbox.git
@@ -65,143 +69,151 @@ go build -o freshbox .
 ./freshbox
 ```
 
+The installer auto-detects your architecture (Apple Silicon / Intel) and either builds from source (if Go is available) or downloads a pre-built binary from GitHub Releases.
+
+---
+
 ## ✨ Features
 
-- **🌐 Bilingual** — English / 中文 interface, selected at startup
-- **🔧 Smart Detection** — Auto-detects installed tools, shows versions with ~~strikethrough~~
-- **📦 Node.js Versions** — Multi-select Node.js versions to install via fnm
-- **📱 App Installer** — One-click install for essential macOS apps
-- **🤖 AI Tools Config** — Full setup for Codex and Claude Code with config file generation
-- **🔌 MCP Servers** — Select from 11 popular MCP servers to configure
-- **🎨 Extra Setup** — Zed theme, Kaku terminal, Karabiner shortcuts, dev workspace
-- **🖥 System Defaults** — Set default browser, editor, media player
-- **✨ Beautiful TUI** — Rounded borders, colors, smooth multi-page navigation
+| | Feature | Description |
+|---|---|---|
+| 🌐 | **Bilingual Interface** | Full English / 中文 interface — choose at startup |
+| 🔧 | **Smart Detection** | Auto-detects installed tools, shows versions, greys out what's already there |
+| 📦 | **Node.js Manager** | Multi-select Node.js versions to install via [fnm](https://github.com/Schniz/fnm) |
+| 📱 | **App Installer** | One-click install for curated macOS apps via Homebrew Cask |
+| 🤖 | **AI Tool Config** | Full setup for Codex & Claude Code — model, API key, base URL |
+| 🔌 | **MCP Servers** | Select from 11 popular MCP servers to configure for Claude Code & Codex |
+| 🎨 | **Theme & Terminal** | Zed Catppuccin Blur theme, Kaku terminal + 4 zsh plugins |
+| ⌨️ | **Keyboard Shortcuts** | Karabiner `⌃⌥⌘T` → opens Kaku in Finder's current folder |
+| 📁 | **Dev Workspace** | Create organized `~/Developer` directory + Finder customization |
+| 🖥 | **System Defaults** | Set default browser, editor, and media player |
+| ✨ | **Beautiful TUI** | Rounded borders, spinner progress, smooth multi-page navigation |
+| 📝 | **Install Logging** | Full install log at `~/.freshbox/install.log` for troubleshooting |
 
-## 📦 What Gets Installed
+---
 
-### Development Tools
+## 🗂️ What Gets Installed
 
-| Tool | Description | Install Method |
-|------|-------------|----------------|
-| [Homebrew](https://brew.sh/) | macOS package manager, the foundation for everything else | Official install script |
-| [Git](https://git-scm.com/) | Distributed version control system | `brew install git` |
-| [Java (OpenJDK)](https://openjdk.org/) | Java development kit for JVM-based development | `brew install openjdk` |
-| [Maven](https://maven.apache.org/) | Java project build and dependency management | `brew install maven` |
-| [Gradle](https://gradle.org/) | Flexible build automation tool for JVM projects | `brew install gradle` |
-| [Python](https://www.python.org/) | General-purpose programming language | `brew install python` |
-| [uv](https://github.com/astral-sh/uv) | Ultra-fast Python package manager by Astral | `brew install uv` |
-| [fnm](https://github.com/Schniz/fnm) | Fast Node.js version manager written in Rust | `brew install fnm` |
-| [Rust](https://www.rust-lang.org/) | Systems programming language with memory safety | `rustup` official installer |
-| [Go](https://go.dev/) | Statically typed language by Google for scalable systems | `brew install go` |
+<details open>
+<summary><strong>🔧 Development Tools</strong></summary>
 
-### Applications
+| Tool | Description | Method |
+|------|-------------|--------|
+| [Homebrew](https://brew.sh/) | The missing package manager for macOS | Official script |
+| [Git](https://git-scm.com/) | Distributed version control | `brew install` |
+| [Java (OpenJDK)](https://openjdk.org/) | JDK for JVM-based development | `brew install openjdk` |
+| [Maven](https://maven.apache.org/) | Java build & dependency manager | `brew install` |
+| [Gradle](https://gradle.org/) | Flexible build automation for JVM | `brew install` |
+| [Python](https://www.python.org/) | General-purpose language | `brew install` |
+| [uv](https://github.com/astral-sh/uv) | Ultra-fast Python package manager | `brew install` |
+| [fnm](https://github.com/Schniz/fnm) | Fast Node.js version manager (Rust) | `brew install` |
+| [Rust](https://www.rust-lang.org/) | Systems language with memory safety | `rustup` installer |
+| [Go](https://go.dev/) | Statically typed language by Google | `brew install` |
 
-| App | Description | Install Method |
-|-----|-------------|----------------|
-| [Google Chrome](https://www.google.com/chrome/) | Web browser by Google | `brew install --cask google-chrome` |
-| [Zed](https://zed.dev/) | High-performance code editor by the Atom creators | `brew install --cask zed` |
-| [IINA](https://iina.io/) | Modern media player for macOS | `brew install --cask iina` |
-| [Kaku](https://github.com/tw93/Kaku) | Lightweight terminal app built on WezTerm by tw93 | `brew install --cask kaku` |
-| [Karabiner-Elements](https://karabiner-elements.pqrs.org/) | Powerful keyboard customizer for macOS | `brew install --cask karabiner-elements` |
-| [Mole](https://github.com/tw93/Mole) | macOS system cleaner to free up disk space by tw93 | `brew install --cask mole` |
-
-### AI Tools
-
-| Tool | Description | Install Method |
-|------|-------------|----------------|
-| [Codex](https://github.com/openai/codex) | OpenAI's AI coding assistant CLI | `npm install -g @openai/codex` |
-| [Claude Code](https://github.com/anthropics/claude-code) | Anthropic's AI coding assistant CLI | `npm install -g @anthropic-ai/claude-code` |
-
-### MCP Servers (Selectable)
-
-| Server | Description |
-|--------|-------------|
-| [Playwright](https://github.com/anthropics/anthropic-cookbook) | Browser automation and testing |
-| [Context7](https://github.com/anthropics/anthropic-cookbook) | Contextual code understanding |
-| [Filesystem](https://github.com/anthropics/anthropic-cookbook) | Local file system access |
-| [GitHub](https://github.com/anthropics/anthropic-cookbook) | GitHub API integration |
-| [Memory](https://github.com/anthropics/anthropic-cookbook) | Persistent memory across sessions |
-| [Sequential Thinking](https://github.com/anthropics/anthropic-cookbook) | Step-by-step reasoning |
-| [Fetch](https://github.com/anthropics/anthropic-cookbook) | HTTP request capabilities |
-| [Brave Search](https://github.com/anthropics/anthropic-cookbook) | Web search via Brave |
-| [Slack](https://github.com/anthropics/anthropic-cookbook) | Slack workspace integration |
-| [Google Maps](https://github.com/anthropics/anthropic-cookbook) | Location and maps API |
-| [SQLite](https://github.com/anthropics/anthropic-cookbook) | Local SQLite database access |
-
-### Extra Setup (What the Scripts Do)
-
-#### 🎨 Zed Catppuccin Blur Theme
-
-Clones the [catppuccin-blur](https://github.com/jenslys/zed-catppuccin-blur) theme, applies a custom icy blue tint to both light and dark variants, and configures Zed to auto-switch based on system appearance:
-- **Light mode** → Catppuccin Latte with `#e8f0ff` blue tint
-- **Dark mode** → Catppuccin Mocha with `#181c2e` blue tint
-- Writes to `~/.config/zed/themes/catppuccin-blur.json` and `~/.config/zed/settings.json`
-
-#### 🐚 Kaku Terminal Setup
-
-Initializes [Kaku](https://github.com/tw93/Kaku) (a lightweight terminal by tw93) with a full config and clones 4 essential zsh plugins:
-- [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions) — Fish-like command auto-completion
-- [zsh-completions](https://github.com/zsh-users/zsh-completions) — Additional completion definitions
-- [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting) — Real-time command syntax coloring
-- [zsh-z](https://github.com/agkozak/zsh-z) — Fast directory jumping based on frecency
-- Writes to `~/.config/kaku/kaku.lua` and `~/.config/kaku/zsh/plugins/`
-
-#### ⌨️ Karabiner ⌃⌥⌘T → Kaku
-
-Sets up [Karabiner-Elements](https://karabiner-elements.pqrs.org/) with a keyboard shortcut to quick-launch Kaku:
-- **Shortcut**: `Control + Option + Command + T`
-- **Behavior**: If Finder is active, opens Kaku in the selected folder's directory. Otherwise opens Kaku normally.
-- Creates `~/.local/bin/open-kaku.sh` (the launcher script) and `~/.config/karabiner/karabiner.json`
-
-#### 📁 Developer Workspace
-
-Creates a standardized `~/Developer` directory structure for organizing all projects:
-
-```
-~/Developer/
-├── opensource/      Personal open-source projects
-├── boundless/       Company projects
-├── freelance/       Freelance / contract work
-├── playground/      Learning, demos, experiments
-├── design/          UI designs, icons, assets
-├── notes/           Technical notes, docs, blog drafts
-├── scripts/         Automation scripts, CLI tools
-└── archive/         Completed / archived projects
-```
-
-Also configures Finder via `defaults write`:
-- Show hidden files and file extensions
-- Show path bar and status bar
-- Default to list view
-- Search current folder only
-- New Finder windows open `~/Developer`
-- Restarts Finder to apply changes
-
-### Generated Config Files
-
-<details>
-<summary>Codex — <code>~/.codex/config.toml</code> + <code>auth.json</code></summary>
-
-```toml
-# config.toml
-model = "o4-mini"
-thinking_level = "medium"
-base_url = "https://api.openai.com/v1"
-```
-
-```json
-// auth.json
-{
-  "api_key": "sk-..."
-}
-```
 </details>
 
 <details>
-<summary>Claude Code — <code>~/.claude/settings.json</code> + <code>mcp_servers.json</code></summary>
+<summary><strong>📦 Applications</strong></summary>
+
+| App | Description | Method |
+|-----|-------------|--------|
+| [Google Chrome](https://www.google.com/chrome/) | Web browser by Google | `brew --cask` |
+| [Zed](https://zed.dev/) | High-performance code editor | `brew --cask` |
+| [IINA](https://iina.io/) | Modern media player for macOS | `brew --cask` |
+| [Kaku](https://github.com/tw93/Kaku) | Lightweight terminal by tw93 | `brew --cask` |
+| [Karabiner-Elements](https://karabiner-elements.pqrs.org/) | Keyboard customizer | `brew --cask` |
+| [Mole](https://github.com/tw93/Mole) | macOS system cleaner by tw93 | `brew install` |
+| [Tabby](https://tabby.sh/) | Modern terminal with SSH support | `brew --cask` |
+
+</details>
+
+<details>
+<summary><strong>🤖 AI Tools</strong></summary>
+
+| Tool | Description | Method |
+|------|-------------|--------|
+| [Codex](https://github.com/openai/codex) | OpenAI's AI coding CLI | `npm install -g` |
+| [Claude Code](https://github.com/anthropics/claude-code) | Anthropic's AI coding CLI | `npm install -g` |
+
+</details>
+
+<details>
+<summary><strong>🔌 MCP Servers</strong> (11 available)</summary>
+
+| Server | Package |
+|--------|---------|
+| Playwright | `@playwright/mcp` |
+| Context7 | `@upstash/context7-mcp` |
+| Filesystem | `@modelcontextprotocol/server-filesystem` |
+| GitHub | `@modelcontextprotocol/server-github` |
+| Memory | `@modelcontextprotocol/server-memory` |
+| Sequential Thinking | `@modelcontextprotocol/server-sequential-thinking` |
+| Fetch | `@modelcontextprotocol/server-fetch` |
+| Brave Search | `@modelcontextprotocol/server-brave-search` |
+| Slack | `@modelcontextprotocol/server-slack` |
+| Google Maps | `@modelcontextprotocol/server-google-maps` |
+| SQLite | `@modelcontextprotocol/server-sqlite` |
+
+</details>
+
+<details>
+<summary><strong>🎨 Extra Setup</strong></summary>
+
+#### Zed Catppuccin Blur Theme
+
+Clones [catppuccin-blur](https://github.com/jenslys/zed-catppuccin-blur), applies a custom icy blue tint, and auto-switches based on system appearance:
+
+- **Light** → Catppuccin Latte with `#e8f0ff` tint
+- **Dark** → Catppuccin Mocha with `#181c2e` tint
+
+#### Kaku Terminal Setup
+
+Initializes [Kaku](https://github.com/tw93/Kaku) with a full config and 4 essential zsh plugins:
+
+- [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions) — Fish-like auto-completion
+- [zsh-completions](https://github.com/zsh-users/zsh-completions) — Additional completions
+- [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting) — Real-time syntax coloring
+- [zsh-z](https://github.com/agkozak/zsh-z) — Fast directory jumping
+
+#### Karabiner ⌃⌥⌘T → Kaku
+
+Sets up `Ctrl+Option+Cmd+T` to quick-launch Kaku — opens in Finder's current directory if Finder is active.
+
+#### Developer Workspace
+
+Creates `~/Developer` with an organized structure + configures Finder (hidden files, path bar, list view, default to `~/Developer`):
+
+```
+~/Developer/
+├── opensource/     Personal open-source projects
+├── boundless/      Company projects
+├── freelance/      Freelance / contract work
+├── playground/     Learning & experiments
+├── design/         UI designs, icons, assets
+├── notes/          Technical notes & blog drafts
+├── scripts/        Automation scripts & CLI tools
+└── archive/        Completed / archived projects
+```
+
+</details>
+
+<details>
+<summary><strong>⚙️ Generated Config Files</strong></summary>
+
+**Codex** — `~/.codex/config.toml` + `auth.json`
+
+```toml
+model = "o4-mini"
+model_reasoning_effort = "medium"
+
+[model_providers.freshbox]
+name = "openai"
+base_url = "https://api.openai.com/v1"
+```
+
+**Claude Code** — `~/.claude/settings.json`
 
 ```json
-// settings.json
 {
   "model": "claude-sonnet-4-6",
   "env": {
@@ -211,25 +223,17 @@ base_url = "https://api.openai.com/v1"
 }
 ```
 
-```json
-// settings.json (mcpServers merged in)
-{
-  "model": "claude-sonnet-4-6",
-  "mcpServers": {
-    "Playwright": {
-      "command": "npx",
-      "args": ["-y", "@playwright/mcp", "--headless"]
-    }
-  }
-}
-```
 </details>
+
+---
 
 ## 🎮 Usage
 
 ```bash
 freshbox
 ```
+
+### Keyboard Shortcuts
 
 | Key | Action |
 |-----|--------|
@@ -244,31 +248,62 @@ freshbox
 ### Workflow
 
 ```
-🌐 Language → 👋 Welcome → 🔧 Dev Tools → 📦 Apps → 📦 Node.js
-  → 🤖 AI Tools → ⚙️ Codex Config → ⚙️ Claude Config
-  → 🔌 MCP Servers → 🎨 Extra Setup → 🖥 System Defaults
-  → ⏳ Installing → ✅ Done!
+🌐 Language  →  👋 Welcome  →  🔧 Dev Tools  →  📦 Apps  →  📦 Node.js
+  →  🤖 AI Tools  →  ⚙️ Codex Config  →  ⚙️ Claude Config
+  →  🔌 MCP Servers  →  🎨 Extra Setup  →  🖥 System Defaults
+  →  ⏳ Installing...  →  ✅ Done!
 ```
+
+---
 
 ## 📁 Project Structure
 
 ```
 freshbox/
-├── main.go                          # Entry point
-├── install.sh                       # curl-based quick installer
+├── main.go                           # Entry point
+├── install.sh                        # curl-based quick installer
 ├── internal/
-│   ├── checker/checker.go           # System detection with descriptions
-│   ├── installer/installer.go       # Install logic (brew/rustup/npm/fnm)
-│   ├── config/config.go             # AI tool config generation (Codex/Claude/MCP)
-│   ├── setup/setup.go               # Zed theme, Kaku init, Karabiner, dev workspace
+│   ├── checker/
+│   │   ├── checker.go                # System detection & version checking
+│   │   └── checker_test.go           # 9 tests
+│   ├── config/
+│   │   ├── config.go                 # AI tool config generation (Codex/Claude/MCP)
+│   │   └── config_test.go            # 14 tests
+│   ├── installer/
+│   │   ├── installer.go              # Install logic (brew/rustup/npm/fnm)
+│   │   └── installer_test.go         # 7 tests
+│   ├── setup/
+│   │   ├── setup.go                  # Zed theme, Kaku init, Karabiner, workspace
+│   │   └── setup_test.go             # 3 tests
 │   └── ui/
-│       ├── i18n.go                  # Bilingual text (EN/ZH)
-│       ├── styles.go                # Lipgloss styles
-│       ├── model.go                 # Bubbletea multi-page TUI (13 pages)
-│       └── install.go               # Async install queue with progress
+│       ├── model.go                  # Bubbletea multi-page TUI (13 pages)
+│       ├── install.go                # Async install queue with progress
+│       ├── i18n.go                   # Bilingual text (EN/ZH)
+│       ├── styles.go                 # Lipgloss styles
+│       └── ui_test.go                # 33 tests
 ├── go.mod
 └── go.sum
 ```
+
+---
+
+## 🧪 Testing
+
+Run the full test suite:
+
+```bash
+go test ./... -v
+```
+
+The project has **55+ unit tests** covering:
+
+- **checker** — tool detection, version parsing, registry completeness
+- **config** — config merge logic, MCP timeout injection, JSON round-trips
+- **installer** — brew args, fnm operations, system defaults
+- **setup** — directory creation, config file generation
+- **ui** — model lifecycle, navigation, selection, i18n, install queue
+
+All tests use `t.TempDir()` and `t.Setenv("HOME", ...)` for complete isolation — no side effects on your real config files.
 
 ---
 
@@ -282,20 +317,17 @@ freshbox/
 curl -fsSL https://raw.githubusercontent.com/kittors/freshbox/main/install.sh | bash
 ```
 
-### 功能
+### 功能亮点
 
 - 🌐 中英文双语界面，启动时选择
-- 🔧 自动检测已安装的开发工具，显示版本号（已安装的划删除线），每个工具附带一句话介绍
-- 📦 通过 [fnm](https://github.com/Schniz/fnm) 安装和管理多个 Node.js 版本
-- 📱 一键安装常用软件：[Chrome](https://www.google.com/chrome/)、[Zed](https://zed.dev/)、[IINA](https://iina.io/)、[Kaku](https://github.com/tw93/Kaku)、[Karabiner](https://karabiner-elements.pqrs.org/)、[Mole](https://github.com/tw93/Mole)
-- 🤖 配置 AI 开发工具（[Codex](https://github.com/openai/codex)、[Claude Code](https://github.com/anthropics/claude-code)），自动生成配置文件
+- 🔧 自动检测已安装工具并显示版本号（已安装的划删除线）
+- 📦 通过 fnm 安装和管理多个 Node.js 版本
+- 📱 一键安装常用软件：Chrome、Zed、IINA、Kaku、Karabiner、Mole、Tabby
+- 🤖 配置 AI 开发工具（Codex、Claude Code），自动生成配置文件
 - 🔌 勾选配置 11 个流行的 MCP 服务
-- 🎨 额外配置：
-  - Zed [Catppuccin Blur](https://github.com/jenslys/zed-catppuccin-blur) 冰蓝主题，自动跟随系统明暗
-  - [Kaku](https://github.com/tw93/Kaku) 终端完整初始化 + 4 个 zsh 插件
-  - [Karabiner](https://karabiner-elements.pqrs.org/) 快捷键 `⌃⌥⌘T` 快速启动 Kaku
-  - `~/Developer` 开发工作区目录结构 + Finder 定制化
+- 🎨 额外配置：Zed 冰蓝主题 / Kaku 终端初始化 / Karabiner 快捷键 / 开发工作区
 - 🖥 设置系统默认浏览器、编辑器、播放器
+- 📝 完整安装日志保存在 `~/.freshbox/install.log`
 
 ### 操作方式
 
@@ -311,35 +343,42 @@ curl -fsSL https://raw.githubusercontent.com/kittors/freshbox/main/install.sh | 
 
 ---
 
-## 🙏 Credits
+## 🤝 Contributing
 
-freshbox is built with and installs tools from these amazing open-source projects:
+Contributions are welcome! Feel free to open issues or submit pull requests.
 
-| Project | Author | Description |
-|---------|--------|-------------|
-| [Bubbletea](https://github.com/charmbracelet/bubbletea) | [Charm](https://github.com/charmbracelet) | TUI framework for Go |
-| [Lipgloss](https://github.com/charmbracelet/lipgloss) | [Charm](https://github.com/charmbracelet) | Style definitions for terminal UIs |
-| [Homebrew](https://brew.sh/) | [Homebrew](https://github.com/Homebrew) | The missing package manager for macOS |
-| [fnm](https://github.com/Schniz/fnm) | [Schniz](https://github.com/Schniz) | Fast and simple Node.js version manager |
-| [uv](https://github.com/astral-sh/uv) | [Astral](https://github.com/astral-sh) | Ultra-fast Python package manager |
-| [Zed](https://zed.dev/) | [Zed Industries](https://github.com/zed-industries) | High-performance code editor |
-| [Catppuccin Blur](https://github.com/jenslys/zed-catppuccin-blur) | [jenslys](https://github.com/jenslys) | Catppuccin theme with blur for Zed |
-| [Kaku](https://github.com/tw93/Kaku) | [tw93](https://github.com/tw93) | Lightweight macOS terminal |
-| [Mole](https://github.com/tw93/Mole) | [tw93](https://github.com/tw93) | macOS system cleaner |
-| [IINA](https://iina.io/) | [IINA](https://github.com/iina/iina) | Modern media player for macOS |
-| [Karabiner-Elements](https://karabiner-elements.pqrs.org/) | [pqrs.org](https://github.com/pqrs-org) | Keyboard customizer for macOS |
-| [Codex](https://github.com/openai/codex) | [OpenAI](https://github.com/openai) | AI coding assistant CLI |
-| [Claude Code](https://github.com/anthropics/claude-code) | [Anthropic](https://github.com/anthropics) | AI coding assistant CLI |
-| [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions) | [zsh-users](https://github.com/zsh-users) | Fish-like autosuggestions for zsh |
-| [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting) | [zsh-users](https://github.com/zsh-users) | Syntax highlighting for zsh |
-| [zsh-z](https://github.com/agkozak/zsh-z) | [agkozak](https://github.com/agkozak) | Fast directory jumping |
+```bash
+# Clone and run locally
+git clone https://github.com/kittors/freshbox.git
+cd freshbox
+go run .
+
+# Run tests
+go test ./... -v
+```
 
 ---
 
-## License
+## 🙏 Credits
 
-MIT
+Built with these amazing open-source projects:
 
-## Author
+| Project | Author | Role |
+|---------|--------|------|
+| [Bubbletea](https://github.com/charmbracelet/bubbletea) | [Charm](https://github.com/charmbracelet) | TUI framework |
+| [Lipgloss](https://github.com/charmbracelet/lipgloss) | [Charm](https://github.com/charmbracelet) | Terminal styling |
+| [Homebrew](https://brew.sh/) | [Homebrew](https://github.com/Homebrew) | Package manager |
+| [fnm](https://github.com/Schniz/fnm) | [Schniz](https://github.com/Schniz) | Node.js version manager |
+| [uv](https://github.com/astral-sh/uv) | [Astral](https://github.com/astral-sh) | Python package manager |
+| [Zed](https://zed.dev/) | [Zed Industries](https://github.com/zed-industries) | Code editor |
+| [Catppuccin Blur](https://github.com/jenslys/zed-catppuccin-blur) | [jenslys](https://github.com/jenslys) | Zed theme |
+| [Kaku](https://github.com/tw93/Kaku) | [tw93](https://github.com/tw93) | Terminal |
+| [Mole](https://github.com/tw93/Mole) | [tw93](https://github.com/tw93) | System cleaner |
+| [IINA](https://iina.io/) | [IINA](https://github.com/iina/iina) | Media player |
+| [Karabiner](https://karabiner-elements.pqrs.org/) | [pqrs.org](https://github.com/pqrs-org) | Keyboard customizer |
 
-[@kittors](https://github.com/kittors)
+---
+
+<p align="center">
+  MIT License • Made with 💚 by <a href="https://github.com/kittors">@kittors</a>
+</p>

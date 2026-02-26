@@ -29,7 +29,10 @@ type Item struct {
 
 // resolveCmd finds the command binary, checking extra paths for known tools
 func resolveCmd(cmd string) string {
-	home, _ := os.UserHomeDir()
+	home, err := os.UserHomeDir()
+	if err != nil {
+		home = ""
+	}
 
 	// Check tool-specific paths first (before PATH, which may have stubs)
 	// Rust: ~/.cargo/bin
@@ -116,6 +119,7 @@ func Apps() []*Item {
 		{Name: "Kaku", Desc: "Lightweight terminal app built on WezTerm by tw93", Cmd: "kaku", VerFlag: "--version", Category: "app", BrewName: "tw93/tap/kakuku", IsCask: true},
 		{Name: "Karabiner-Elements", Desc: "Powerful keyboard customizer for macOS", Cmd: "/Applications/Karabiner-Elements.app/Contents/MacOS/Karabiner-Elements", VerFlag: "", Category: "app", BrewName: "karabiner-elements", IsCask: true},
 		{Name: "Mole", Desc: "macOS system cleaner to free up disk space by tw93", Cmd: "mo", VerFlag: "", Category: "app", BrewName: "tw93/tap/mole", IsCask: false},
+		{Name: "Tabby", Desc: "Modern open-source terminal with SSH and serial support", Cmd: "/Applications/Tabby.app/Contents/MacOS/Tabby", VerFlag: "", Category: "app", BrewName: "tabby", IsCask: true},
 	}
 }
 
@@ -135,11 +139,10 @@ func CheckApp(item *Item) {
 			"iina":               "/Applications/IINA.app",
 			"tw93/tap/kakuku":    "/Applications/Kaku.app",
 			"karabiner-elements": "/Applications/Karabiner-Elements.app",
+			"tabby":              "/Applications/Tabby.app",
 		}
 		if p, ok := appPaths[item.BrewName]; ok {
-			out, err := exec.Command("test", "-d", p).CombinedOutput()
-			_ = out
-			if err == nil {
+			if _, err := os.Stat(p); err == nil {
 				item.Status = Installed
 				ver, verErr := exec.Command("defaults", "read", p+"/Contents/Info.plist", "CFBundleShortVersionString").CombinedOutput()
 				if verErr == nil {

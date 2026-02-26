@@ -227,7 +227,7 @@ return config
 
 	// Install zsh plugins
 	plugins := map[string]string{
-		"zsh-autosuggestions":      "https://github.com/zsh-users/zsh-autosuggestions.git",
+		"zsh-autosuggestions":     "https://github.com/zsh-users/zsh-autosuggestions.git",
 		"zsh-completions":         "https://github.com/zsh-users/zsh-completions.git",
 		"zsh-syntax-highlighting": "https://github.com/zsh-users/zsh-syntax-highlighting.git",
 		"zsh-z":                   "https://github.com/agkozak/zsh-z.git",
@@ -374,7 +374,9 @@ func SetupDevWorkspace() error {
 	}
 
 	for _, d := range dirs {
-		os.MkdirAll(filepath.Join(devDir, d), 0755)
+		if err := os.MkdirAll(filepath.Join(devDir, d), 0755); err != nil {
+			return fmt.Errorf("create dir %s: %w", d, err)
+		}
 	}
 
 	// Write root README
@@ -404,23 +406,27 @@ func SetupDevWorkspace() error {
 4. 外包项目统一放 ` + "`freelance/客户名/项目名`" + `
 5. 临时实验代码放 ` + "`playground/`" + `，避免污染正式项目目录
 `
-	os.WriteFile(filepath.Join(devDir, "README.md"), []byte(rootReadme), 0644)
+	if err := os.WriteFile(filepath.Join(devDir, "README.md"), []byte(rootReadme), 0644); err != nil {
+		return fmt.Errorf("write root README: %w", err)
+	}
 
 	// Write sub-directory READMEs
 	readmes := map[string]string{
-		"opensource":         "# opensource\n\n个人开源项目目录。存放在 GitHub 上公开维护的项目。\n",
-		"boundless":         "# boundless\n\n无境科技（Boundless Tech）公司项目目录。\n",
-		"freelance":         "# freelance\n\n自由职业 / 外包项目目录。按客户名称组织。\n",
+		"opensource":          "# opensource\n\n个人开源项目目录。存放在 GitHub 上公开维护的项目。\n",
+		"boundless":           "# boundless\n\n无境科技（Boundless Tech）公司项目目录。\n",
+		"freelance":           "# freelance\n\n自由职业 / 外包项目目录。按客户名称组织。\n",
 		"freelance/_template": "# freelance/_template\n\n外包项目模板目录。新建客户项目时可从此复制初始结构。\n",
-		"playground":        "# playground\n\n学习、Demo、教程跟练、实验性代码。\n",
-		"design":            "# design\n\nUI 设计稿、图标、素材资源。\n",
-		"notes":             "# notes\n\n技术笔记、文档、博客草稿。\n",
-		"scripts":           "# scripts\n\n自动化脚本、CLI 工具、dotfiles 配置。\n",
-		"archive":           "# archive\n\n已完成或不再维护的项目归档。\n",
+		"playground":          "# playground\n\n学习、Demo、教程跟练、实验性代码。\n",
+		"design":              "# design\n\nUI 设计稿、图标、素材资源。\n",
+		"notes":               "# notes\n\n技术笔记、文档、博客草稿。\n",
+		"scripts":             "# scripts\n\n自动化脚本、CLI 工具、dotfiles 配置。\n",
+		"archive":             "# archive\n\n已完成或不再维护的项目归档。\n",
 	}
 
 	for subdir, content := range readmes {
-		os.WriteFile(filepath.Join(devDir, subdir, "README.md"), []byte(content), 0644)
+		if err := os.WriteFile(filepath.Join(devDir, subdir, "README.md"), []byte(content), 0644); err != nil {
+			return fmt.Errorf("write %s README: %w", subdir, err)
+		}
 	}
 
 	// Configure Finder
