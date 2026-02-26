@@ -106,6 +106,8 @@ func DevTools() []*Item {
 		{Name: "Python", Desc: "General-purpose programming language", Cmd: "python3", VerFlag: "--version", Category: "dev", BrewName: "python"},
 		{Name: "uv", Desc: "Ultra-fast Python package manager by Astral", Cmd: "uv", VerFlag: "--version", Category: "dev", BrewName: "uv"},
 		{Name: "fnm", Desc: "Fast Node.js version manager written in Rust", Cmd: "fnm", VerFlag: "--version", Category: "dev", BrewName: "fnm"},
+		{Name: "pnpm", Desc: "Fast, disk-efficient package manager for Node.js", Cmd: "pnpm", VerFlag: "--version", Category: "dev", BrewName: "pnpm"},
+		{Name: "Bun", Desc: "All-in-one JavaScript runtime, bundler, and package manager", Cmd: "bun", VerFlag: "--version", Category: "dev", BrewName: "bun"},
 		{Name: "Rust (rustup)", Desc: "Systems programming language with memory safety", Cmd: "rustup", VerFlag: "--version", Category: "dev", BrewName: "rustup"},
 		{Name: "Go", Desc: "Statically typed language by Google for scalable systems", Cmd: "go", VerFlag: "version", Category: "dev", BrewName: "go"},
 	}

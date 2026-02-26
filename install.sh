@@ -56,7 +56,7 @@ if command -v go &>/dev/null; then
     cd "$TMP_DIR"
     git clone --depth 1 --quiet "https://github.com/$REPO.git" freshbox
     cd freshbox
-    go build -o freshbox .
+    go build -o freshbox ./cmd/freshbox
 
     if [ -w "$INSTALL_DIR" ]; then
         mv freshbox "$INSTALL_DIR/freshbox"
@@ -85,7 +85,7 @@ else
         cd "$TMP_DIR"
         git clone --depth 1 --quiet "https://github.com/$REPO.git" freshbox
         cd freshbox
-        go build -o freshbox .
+        go build -o freshbox ./cmd/freshbox
 
         if [ -w "$INSTALL_DIR" ]; then
             mv freshbox "$INSTALL_DIR/freshbox"

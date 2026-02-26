@@ -1,5 +1,6 @@
 # Binary
 freshbox
+dist/
 
 # OS
 .DS_Store
@@ -18,3 +19,6 @@ coverage.out
 
 # Debug
 *.log
+
+# Go
+vendor/

@@ -338,7 +338,7 @@ func TestCurrentListLen(t *testing.T) {
 		page Page
 		min  int
 	}{
-		{PageDevTools, 10},
+		{PageDevTools, 12},
 		{PageApps, 7},
 		{PageAITools, 2},
 		{PageMCP, 11},

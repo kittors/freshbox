@@ -72,15 +72,6 @@ func TestFnmInstallNode_InvalidVersion(t *testing.T) {
 	}
 }
 
-// --- helper ---
-
-func min(a, b int) int {
-	if a < b {
-		return a
-	}
-	return b
-}
-
 // TestSetJavaHome_SymlinkAndZshrc tests JAVA_HOME configuration
 // Note: requires sudo for symlink, so we test the zshrc part only
 func TestSetJavaHome_ZshrcCheck(t *testing.T) {

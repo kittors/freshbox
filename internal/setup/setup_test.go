@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"os"
 	"path/filepath"
+	"strings"
 	"testing"
 )
 
@@ -40,10 +41,10 @@ func TestSetupKaku_WritesConfig(t *testing.T) {
 	}
 
 	content := string(data)
-	if !contains(content, "wezterm") {
+	if !strings.Contains(content, "wezterm") {
 		t.Error("kaku.lua missing wezterm reference")
 	}
-	if !contains(content, "resolve_bundled_config") {
+	if !strings.Contains(content, "resolve_bundled_config") {
 		t.Error("kaku.lua missing resolve_bundled_config function")
 	}
 }
@@ -89,7 +90,7 @@ func TestSetupDevWorkspace_CreatesStructure(t *testing.T) {
 	if err != nil {
 		t.Fatalf("root README not created: %v", err)
 	}
-	if !contains(string(data), "Developer") {
+	if !strings.Contains(string(data), "Developer") {
 		t.Error("root README missing Developer reference")
 	}
 
@@ -149,20 +150,7 @@ func TestSetupKarabiner_WritesConfig(t *testing.T) {
 		t.Fatalf("marshal config: %v", err)
 	}
 
-	if !contains(string(data), "Control+Option+Command+T opens Kaku") {
+	if !strings.Contains(string(data), "Control+Option+Command+T opens Kaku") {
 		t.Error("karabiner config missing expected rule description")
 	}
-}
-
-func contains(s, substr string) bool {
-	return len(s) >= len(substr) && (s == substr || len(s) > 0 && containsStr(s, substr))
-}
-
-func containsStr(s, substr string) bool {
-	for i := 0; i <= len(s)-len(substr); i++ {
-		if s[i:i+len(substr)] == substr {
-			return true
-		}
-	}
-	return false
 }

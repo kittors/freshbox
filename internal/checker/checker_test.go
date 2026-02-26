@@ -6,8 +6,8 @@ import (
 
 func TestDevToolsReturnsExpectedItems(t *testing.T) {
 	items := DevTools()
-	if len(items) != 10 {
-		t.Errorf("expected 10 dev tools, got %d", len(items))
+	if len(items) != 12 {
+		t.Errorf("expected 12 dev tools, got %d", len(items))
 	}
 
 	expected := map[string]string{
@@ -19,6 +19,8 @@ func TestDevToolsReturnsExpectedItems(t *testing.T) {
 		"Python":        "python3",
 		"uv":            "uv",
 		"fnm":           "fnm",
+		"pnpm":          "pnpm",
+		"Bun":           "bun",
 		"Rust (rustup)": "rustup",
 		"Go":            "go",
 	}

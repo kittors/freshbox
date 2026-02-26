@@ -79,7 +79,7 @@ The installer auto-detects your architecture (Apple Silicon / Intel) and either 
 |---|---|---|
 | 🌐 | **Bilingual Interface** | Full English / 中文 interface — choose at startup |
 | 🔧 | **Smart Detection** | Auto-detects installed tools, shows versions, greys out what's already there |
-| 📦 | **Node.js Manager** | Multi-select Node.js versions to install via [fnm](https://github.com/Schniz/fnm) |
+| 📦 | **Node.js Manager** | Multi-select Node.js versions to install via [fnm](https://github.com/Schniz/fnm), plus [pnpm](https://pnpm.io/) & [Bun](https://bun.sh/) |
 | 📱 | **App Installer** | One-click install for curated macOS apps via Homebrew Cask |
 | 🤖 | **AI Tool Config** | Full setup for Codex & Claude Code — model, API key, base URL |
 | 🔌 | **MCP Servers** | Select from 11 popular MCP servers to configure for Claude Code & Codex |
@@ -107,6 +107,8 @@ The installer auto-detects your architecture (Apple Silicon / Intel) and either 
 | [Python](https://www.python.org/) | General-purpose language | `brew install` |
 | [uv](https://github.com/astral-sh/uv) | Ultra-fast Python package manager | `brew install` |
 | [fnm](https://github.com/Schniz/fnm) | Fast Node.js version manager (Rust) | `brew install` |
+| [pnpm](https://pnpm.io/) | Fast, disk-efficient Node.js package manager | `brew install` |
+| [Bun](https://bun.sh/) | All-in-one JavaScript runtime & package manager | `brew install` |
 | [Rust](https://www.rust-lang.org/) | Systems language with memory safety | `rustup` installer |
 | [Go](https://go.dev/) | Statically typed language by Google | `brew install` |
 
@@ -321,7 +323,7 @@ curl -fsSL https://raw.githubusercontent.com/kittors/freshbox/main/install.sh | 
 
 - 🌐 中英文双语界面，启动时选择
 - 🔧 自动检测已安装工具并显示版本号（已安装的划删除线）
-- 📦 通过 fnm 安装和管理多个 Node.js 版本
+- 📦 通过 fnm 安装和管理多个 Node.js 版本，支持 pnpm 和 Bun
 - 📱 一键安装常用软件：Chrome、Zed、IINA、Kaku、Karabiner、Mole、Tabby
 - 🤖 配置 AI 开发工具（Codex、Claude Code），自动生成配置文件
 - 🔌 勾选配置 11 个流行的 MCP 服务
